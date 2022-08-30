@@ -1,4 +1,4 @@
-var assert = require('assert')
+var assert = require('chai').assert
 
 const database = require('./database')
 
@@ -16,13 +16,13 @@ describe('heroi test-suite', () => {
     // read all heroes
     it('should read db file and returns the contents in an array', async () => {
         const result = await database.readDBFile()
-        assert.ok(result)
+        assert.lengthOf(result, 1, 'hero db contains one element')
     })
 
     // find hero by its id
     it('should find a hero by its id and returns the hero object', async () => {
         const result = await database.findHero('1')
-        assert.ok(result)
+        assert.include(result, )
     })
 
     // create a hero
