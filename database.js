@@ -1,7 +1,8 @@
-const { writeFile, unlink, readFile } = require("fs").promises
+const { writeFile, unlink, readFile } = require('node:fs').promises
+const { existsSync } = require('node:fs')
 const Hero = require('./hero')
 
-const DB_FILE = 'herois.json'
+const DB_FILE = './herois.json'
 
 class Database {
     
@@ -13,6 +14,18 @@ class Database {
         }
     }
     
+    async listHeroes() {
+        try {
+            if( existsSync(DB_FILE) ){
+                return JSON.parse(await readFile(DB_FILE))
+            }
+            else
+                console.log('arquivo nao existe')
+        } catch (error) {
+            console.error('listHeroes error: ', error)
+        }
+    }
+
     async readDBFile() {
         try {
             let heroList = JSON.parse(await readFile(DB_FILE))
